@@ -1,2 +1,2 @@
-all:
-	g++ -std=c++11 main.cpp `pkg-config --libs --cflags opencv` -o p
+segvis:
+	g++ -std=c++11 segmentVis/main.cpp `pkg-config --libs --cflags opencv` -o p
