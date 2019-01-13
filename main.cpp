@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
+#include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 #include "Segment.h"
 
@@ -12,7 +14,23 @@ typedef long long ll;
 
 void drawSegments(vector<Segment> segments, int imgHeight, int imgWidth)
 {
-    Mat image = Mat::zeros(imgWidth, imgHeight, CV_8UC3 );
+    for(size_t i = 0; i < segments.size(); i++)
+    {
+        Mat image = Mat::zeros(imgHeight, imgWidth, CV_8UC3 );
+        Point poly[1][(int)segments[i].pointCount / 2];
+        for(size_t j = 0; j < segments[i].pointCount / 2; j++)
+        {
+            poly[0][j] = Point(segments[i].polygon[j].x, segments[i].polygon[j].y);
+        }
+        
+        const Point* ppt[1] = { poly[0] };
+        int npt[] = { (int)segments[i].pointCount / 2 };
+     
+        fillPoly(image, ppt, npt, 1, Scalar(255, 255, 255), 8 );
+        imshow("Image", image);
+     
+        waitKey(10);
+    }
 }
 
 void printSegments(vector<Segment> segments, int imgHeight, int imgWidth)
@@ -24,7 +42,7 @@ void printSegments(vector<Segment> segments, int imgHeight, int imgWidth)
         cout << segments[i].label << " " << segments[i].pointCount << endl;
         for(size_t j = 0; j < segments[i].polygon.size(); j++)
         {
-            cout << segments[i].polygon[j].x << " " << segments[i].polygon[j].y << " ";
+            cout << segments[i].polygon[j].x << " " << segments[i].polygon[j].y << endl;
         }
         cout << endl;
     }
@@ -119,6 +137,7 @@ int main(int argc, char** argv)
     int imgHeight, imgWidth;
     readJson(segments, imgHeight, imgWidth);
     printSegments(segments, imgHeight, imgWidth);
+    drawSegments(segments, imgHeight, imgWidth);
 	return 0;
 }
 
