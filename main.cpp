@@ -15,9 +15,10 @@ typedef long long ll;
 
 void drawSegments(vector<Segment> segments, int imgHeight, int imgWidth)
 {
+    Mat image = Mat::zeros(imgHeight, imgWidth, CV_8UC3 );
+
     for(size_t i = 0; i < segments.size(); i++)
     {
-        Mat image = Mat::zeros(imgHeight, imgWidth, CV_8UC3 );
         Point poly[1][(int)segments[i].pointCount / 2];
         for(size_t j = 0; j < segments[i].pointCount / 2; j++)
         {
@@ -27,11 +28,11 @@ void drawSegments(vector<Segment> segments, int imgHeight, int imgWidth)
         const Point* ppt[1] = { poly[0] };
         int npt[] = { (int)segments[i].pointCount / 2 };
      
-        fillPoly(image, ppt, npt, 1, Scalar(255, 255, 255), 8 );
-        imshow("Image", image);
-     
-        waitKey(10);
+        Colour col = labels[segments[i].label];
+        fillPoly(image, ppt, npt, 1, Scalar(col.r, col.g, col.b), 8 );
     }
+    imshow("Image", image);
+    waitKey(0);
 }
 
 void printSegments(vector<Segment> segments, int imgHeight, int imgWidth)
@@ -137,7 +138,7 @@ int main(int argc, char** argv)
     vector<Segment> segments;
     int imgHeight, imgWidth;
     readJson(segments, imgHeight, imgWidth);
-    printSegments(segments, imgHeight, imgWidth);
+    //printSegments(segments, imgHeight, imgWidth);
     drawSegments(segments, imgHeight, imgWidth);
 	return 0;
 }
