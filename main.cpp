@@ -4,6 +4,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 #include "Segment.h"
+#include "Label.h"
 
 using namespace std;
 using namespace cv;
