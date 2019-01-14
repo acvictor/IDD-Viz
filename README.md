@@ -1,6 +1,6 @@
 # 3D-Synthesis
 ## Requirements
-- OpenCV 2.4
+- [OpenCV](https://www.learnopencv.com/install-opencv3-on-ubuntu/)
 - C++ 11
 
 ## Segment Visualization
