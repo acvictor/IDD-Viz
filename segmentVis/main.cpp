@@ -7,11 +7,24 @@ using namespace cv;
 
 int main(int argc, char** argv) 
 {
-    Image image;
-    image.ReadJson("005506_gtFine_polygons.json");
-    //image.PrintSegments();
-    image.ComputeBoundingBox();
-    image.DrawSegments("005506_gtFine_polygons.json");
+    ifstream file("segmentVis/imageList.txt");
+    if(file.is_open())
+    {
+        while(!file.eof())
+        {
+            string fName;
+            file >> fName;
+            Image image;
+            image.ReadJson(fName);
+            //image.PrintSegments();
+            image.ComputeBoundingBox();
+            image.DrawSegments(fName);    
+        }
+    }
+    else
+    { 
+        cout << "Unable to open file\n";
+    }
 	return 0;
 }
 

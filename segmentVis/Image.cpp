@@ -3,7 +3,7 @@
 
 #define cout(a) cout<<a<<endl
 
-bool drawBox = 0;
+bool drawBox = 1;
 
 Image::Image()
 {
@@ -11,8 +11,12 @@ Image::Image()
 	imgWidth = 0;
 }
 
-void Image::DrawSegments(string fName)
+void Image::DrawSegments(string f)
 {
+    std::size_t found = f.find_last_of("/");
+    string fName = f.substr(found + 1);
+    cout(fName);
+
     Mat image = Mat::zeros(imgHeight, imgWidth, CV_8UC3 );
 
     for(size_t i = 0; i < segments.size(); i++)
@@ -42,8 +46,8 @@ void Image::DrawSegments(string fName)
         imwrite("output/noBox/" + fName.substr(0, fName.length() - 4) + "jpg", image);
     }
 
-    imshow("Image", image);
-    waitKey(0);
+    //imshow("Image", image);
+    //waitKey(0);
 }
 
 void Image::PrintSegments()
@@ -147,6 +151,7 @@ void Image::ReadJson(string fName)
     else
     { 
         cout << "Unable to open file\n";
+        return;
     }
 
     file.close();
