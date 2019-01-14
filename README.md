@@ -4,7 +4,22 @@
 - C++ 11
 
 ## Segment Visualization
-Code in [segmentVis](segmentVis) contains a JSON file parser and OpenCV visualization of segment polygons from the [Indian Driving Dataset (IDD)](https://idd.insaan.iiit.ac.in/). To compile run
+Code in [segmentVis](segmentVis) contains a JSON file parser and OpenCV visualization of segment polygons from the [Indian Driving Dataset (IDD)](https://idd.insaan.iiit.ac.in/). Download this repository and the datset and extract the data folders. The file structure should look as shown below.
+
+```
+root
+|
+└─ anue
+|   └─ gtFine
+|   └─ leftImg8bit
+|   ...
+|
+└─ parser
+    └─ segmentVis
+    | Makefile
+    | README
+```
+ To compile, within parser/, run
 ```
 make segvis
 ```
