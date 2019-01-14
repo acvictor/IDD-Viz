@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -30,6 +30,7 @@ void drawSegments(vector<Segment> segments, int imgHeight, int imgWidth)
      
         Colour col = labels[segments[i].label];
         fillPoly(image, ppt, npt, 1, Scalar(col.r, col.g, col.b), 8 );
+        rectangle(image, Point(segments[i].box.x1, segments[i].box.y1), Point(segments[i].box.x2, segments[i].box.y2), Scalar(255, 255, 255));
     }
     imshow("Image", image);
     waitKey(0);
@@ -49,6 +50,14 @@ void printSegments(vector<Segment> segments, int imgHeight, int imgWidth)
         cout << endl;
     }
     cout << endl;
+}
+
+void computeBoundingBox(vector<Segment> &segments)
+{
+    for(size_t i = 0; i < segments.size(); i++)
+    {
+        segments[i].ComputeBoundingBox();
+    }
 }
 
 void readJson(vector<Segment> &segments, int &imgHeight, int &imgWidth)
@@ -139,6 +148,7 @@ int main(int argc, char** argv)
     int imgHeight, imgWidth;
     readJson(segments, imgHeight, imgWidth);
     //printSegments(segments, imgHeight, imgWidth);
+    computeBoundingBox(segments);
     drawSegments(segments, imgHeight, imgWidth);
 	return 0;
 }
